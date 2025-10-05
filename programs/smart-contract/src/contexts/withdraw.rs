@@ -45,6 +45,8 @@ impl<'info> Withdraw<'info> {
             authority: self.escrow.to_account_info(),
         };
 
+        // Todo checker que ya pas de loan en cours - ptet mettre ça dans une fonction auxiliaire à voir - voir ça
+
         let seed_bytes = self.escrow.seed.to_le_bytes();
 
         let seeds = &[

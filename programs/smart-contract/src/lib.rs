@@ -23,9 +23,25 @@ pub mod escrow {
         ctx: Context<Withdraw>,
     ) -> Result<()> {
         ctx.accounts.withdraw()?;
-        // ctx.accounts.close()?;
+        // ctx.accounts.close()?; - todo
         Ok(())
     }
+    
+    pub fn make_sell_offer(
+        ctx: Context<MakeSellOffer>,
+        amount: u64,
+    ) -> Result<()> {
+        ctx.accounts.make_sell_offer(amount)?;
+        Ok(())
+    }
+
+    // pub fn accept_sell_offer(
+    //     ctx: Context<AcceptSellOffer>,
+    // ) -> Result<()> {
+    //     ctx.accounts.accept_sell_offer()?;
+    //     Ok(())
+    // }
+    
 }
 
 #[derive(Accounts)]
