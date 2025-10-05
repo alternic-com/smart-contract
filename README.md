@@ -1,50 +1,50 @@
-# Escrow — Spécification du smart contract et README
+# Escrow — Smart Contract Specification and README
 
-## Build and test
+## Build and Test
 
-Dependencies install: `yarn` (?)
+Install dependencies: `yarn` (?)
 
-Build: `anchor build`.
+Build: `anchor build`
 
-Test: `anchor test`.
+Test: `anchor test`
 
-## Contexte & objectifs
+## Context & Objectives
 
-But : fournir un smart contract Solana (Anchor) qui permet de:
-+ Déposer un NFT (domain NFT) sur la plateforme (fait).
-+ Le retirer (fait).
-+ Le mettre en vente, accepter des offres et en faire.
-+ Vente à crédit.
-+ Loan contre NFT.
+Goal: provide a Solana (Anchor) smart contract that allows you to:
 
-### Vente simple:
+* Deposit an NFT (domain NFT) on the platform (done).
+* Withdraw it (done).
+* List it for sale, accept offers, and make offers.
+* Sell on credit.
+* Take a loan using an NFT as collateral.
 
-+ Si on possède un NFT, pouvoir faire une offres de vente avec la currency de son choix (todo voir pour en whitelister 2/3).
+### Simple Sale:
 
-+ Pouvoir faire une offre sur n'importe quel NFT (et ça bloque nos fonds pour qu'elle puisse être acceptée).
+* If you own an NFT, you can create a sell offer with the currency of your choice (todo: whitelist 2–3 of them).
 
-### Vente à crédit:
+* You can make an offer on any NFT (and your funds will be locked so the offer can be accepted).
 
-+ Le propriétaire du NFT mets une offre de vente à crédit. Pour cette vente, l’acheteur doit payer x€/mois pendant y temps, puis z€ (ça todo les modalités). Pendant ce crédit, le NFT reste sur la plateforme, mais l’acheteur est l’owner et peut changer ce sur quoi redirige le domaine
+### Sale on Credit:
 
-### Prêt contre NFT
+* The owner of the NFT creates a sale offer on credit. For this sale, the buyer must pay x€/month for y months, then z€ (the details are still todo). During this credit period, the NFT remains on the platform, but the buyer is the owner and can change what the domain resolves to.
 
-+ Pouvoir mettre une offre de prêt, à taux fixe, pendant 1an, remboursable de manière anticipée.
-Peut être: Pouvoir déclencher une enchère (sur le taux) pendant 1sem pour un prêt d’un an.
-Pouvoir le mettre en vente même si on un prêt encours avec, auquel cas ça rembourse atomiquement le prêt avec les fonds de la vente.
+### Loan Against NFT
 
+* Ability to make a loan offer, at a fixed rate, for one year, with the possibility of early repayment.
+  Possibly: allow starting an auction (on the rate) for one week for a one-year loan.
+  Also allow selling the NFT even if there’s an ongoing loan — in that case, the loan is automatically repaid using the sale proceeds.
 
-## Résumé API (instructions)
+## API Summary (Instructions)
 
 ### 1) `deposit(seed: u64)`
 
-+ Crée le compte `EscrowState` (PDA) et initialise un `vault` associated token account pour stocker le NFT. Transfère 1 token (NFT) du `maker` vers `vault`.
+* Creates the `EscrowState` account (PDA) and initializes a `vault` associated token account to store the NFT. Transfers 1 token (NFT) from the `maker` to the `vault`.
 
 ### 2) `withdraw()`
 
-+ Transfère le NFT du `vault` vers `maker_ata_domain` en signant avec la PDA `escrow`.
+* Transfers the NFT from the `vault` to `maker_ata_domain`, signing with the PDA `escrow`.
 
-## Accounts & storage
+## Accounts & Storage
 
 ### `EscrowState`
 
@@ -68,16 +68,9 @@ pub struct EscrowState {
 }
 ```
 
-## Structure des fichiers
+## File Structure
 
-* `lib.rs` : entrypoint Anchor, définit instructions.
-* `contexts/*.rs` : handlers d'instructions (deposit, withdraw, sell, offer...).
-* `state/*.rs` : structures persistantes (EscrowState, OfferState, LoanState).
-* `tests/` : tests.
-
-
-## Liste des todos futures
-
-**Vente**
-
-**Loan**
+* `lib.rs`: Anchor entrypoint, defines instructions.
+* `contexts/*.rs`: instruction handlers (deposit, withdraw, sell, offer...).
+* `state/*.rs`: persistent structures (EscrowState, OfferState, LoanState).
+* `tests/`: tests.
