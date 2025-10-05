@@ -14,7 +14,7 @@ Goal: provide a Solana (Anchor) smart contract that allows you to:
 
 * Deposit an NFT (domain NFT) on the platform (done and tested).
 * Withdraw it (done and tested).
-* List it for sale (done, not tested), accept offers, and make offers to any NFT.
+* List it for sale (done and tested), accept offers, and make offers to any NFT.
 * Sell on credit.
 * Take a loan using an NFT as collateral.
 
